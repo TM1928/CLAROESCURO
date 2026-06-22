@@ -1,0 +1,68 @@
+/* Reset básico para remover margens e preenchimentos padrão do navegador */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #c8d6e5; /* Cor de fundo azul acinzentado suave */
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Ativa o layout flexível */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Container principal que posiciona os títulos de forma relativa */
+.main {
+    position: relative; /* Permite que os elementos filhos com position: absolute sejam posicionados em relação a este container */
+    width: 800px; /* Largura fixa para o container */
+}
+
+/* Estilo base para ambos os títulos H1 */
+h1{
+    position: absolute; /* Posiciona os títulos de forma absoluta dentro do container .main */
+    top: 50%; /* Alinha no centro vertical */
+    left: 50%; /* Alinha no centro horizontal */
+    transform: translate(-50%,-50%); /* Corrige o deslocamento para centralizar perfeitamente */
+    margin: 0; /* Remove margem padrão */
+    padding: 0; /* Remove preenchimento padrão */
+    width: 100%; /* Ocupa toda a largura do container */
+    text-align: center; /* centraliza o texto horizontalmente */
+    font-size: 220px; /* Tamanho grande para o texto */
+    text-transform: uppercase; /* Converte o texto para maiúsculas */
+}
+
+/* Estilo específico para o SEGUNDO H1 (a camada superior) */
+h1:nth-child(2) {
+    color: white; /* Texto branco */
+    transition: 0.5s; /* Animação suave de 0.5 segundos para mudanças de propriedade */
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0% 100%);
+    /* Define um "recorte" inicial que esconde o texto:
+       - Começa no canto superior esquerdo (0,0)
+       - Vai para o canto superior direito (100%,0)
+       - Vai para o canto inferior direito (100%,0) - repete o ponto, criando uma linha
+       - Termina no canto inferior esquerdo (0%,100%)
+       - Isso cria um recorte que faz o texto desaparecer (área zero) */
+    background-color: #c8d6e5; /* Cor de fundo que combina com o body, criando efeito de "máscara" */
+}
+
+/* Efeito HOVER no SEGUNDO H1 - revela o texto */
+h1:nth-child(2):hover {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    /* Quando o mouse passa por cima, o recorte muda para:
+       - Canto superior esquerdo (0,0)
+       - Canto superior direito (100%,0)
+       - Canto inferior direito (100%,100%)
+       - Canto inferior esquerdo (0%,100%)
+       - Isso revela TODO o texto, criando um efeito de "revelação" de cima para baixo */
+}
+
+/* Efeito HOVER no PRIMEIRO H1 (camada inferior) que afeta o SEGUNDO H1 */
+h1:nth-child(1):hover ~ h1 {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    /* Quando o mouse passa sobre o primeiro H1 (texto de fundo),
+       o segundo H1 (texto branco) é recortado para:
+       - Canto superior esquerdo (0,0)
+       - Canto superior direito (100%,0)
+       - Canto inferior direito (100%,0) - linha no topo
+       - Canto inferior esquerdo (0,0)
+       - Isso faz o texto branco desaparecer completamente,
+         revelando apenas o texto de fundo */
+}
